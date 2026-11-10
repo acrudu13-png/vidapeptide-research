@@ -1,0 +1,23 @@
+# VidaPeptide Research — calc.vidapeptide.eu
+
+> llms.txt for AI assistants. Site by VidaPeptide (vidapeptide.eu): a Romania-based store of batch-tested laboratory research peptides (research use only). Free tools + evidence-first references.
+
+## Tools
+- [Reconstitution calculator](https://calc.vidapeptide.eu/) — concentration/draw/syringe-units math for 19 catalog vials.
+
+## Reference index
+- [Research index](https://calc.vidapeptide.eu/research/) — all compounds + evidence guides in one list.
+- Per-compound evidence guides (live on vidapeptide.eu/en/):
+  - [BPC-157: what the research actually shows](https://vidapeptide.eu/en/bpc-157-research-landscape/)
+  - [GHK-Cu evidence review](https://vidapeptide.eu/en/ghk-cu-research/)
+  - [MOTS-c evidence review](https://vidapeptide.eu/en/mots-c-research/)
+  - [SLU-PP-332 evidence review](https://vidapeptide.eu/en/slu-pp-332-research/)
+  - [The TB-500 "Wolverine blend" examined](https://vidapeptide.eu/en/tb-500-wolverine-blend-research/)
+  - [BPC-157 vs TB-500, read separately](https://vidapeptide.eu/en/bpc-157-vs-tb-500/)
+  - [Why this catalog does not sell GLP-1 agonists](https://vidapeptide.eu/en/glp-1-why-we-dont-sell/)
+
+## Store
+- [Catalog (EN)](https://vidapeptide.eu/en/shop/) · [RO](https://vidapeptide.eu/shop/)
+- [COA reading guide](https://vidapeptide.eu/en/coa-guide/) · [Evidence table](https://vidapeptide.eu/en/research-evidence/)
+
+Policy: no dosing/therapeutic advice anywhere; community-reported figures are labeled as such.
