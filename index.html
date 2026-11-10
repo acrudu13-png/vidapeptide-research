@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peptide Reconstitution Calculator — free lab math tool | VidaPeptide Research</title>
+<meta name="description" content="Free reconstitution calculator for lyophilized research peptides: concentration per mL, draw volume and insulin-syringe units for any vial size and target amount. Laboratory research use only.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3c3.2 3.9 5.2 7.3 5.2 11.2 0 4.6-2.4 7.6-5.2 7.6s-5.2-3-5.2-7.6C10.8 10.3 12.8 6.9 16 3z' fill='%23b3541e'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Peptide Reconstitution Calculator",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web browser",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Reconstitution math for lyophilized laboratory research peptides: solution concentration, draw volume and syringe units.",
+  "url": "https://acrudu13-png.github.io/vidapeptide-research/",
+  "sameAs": ["https://vidapeptide.eu/en/calculator/"]
+}
+</script>
+<style>
+  :root{--bg:#141210;--card:#1d1a17;--line:#2c2824;--bone:#efe9df;--mut:#a49a8c;--cop:#b3541e;--copb:#d97b45;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--bone);font:16px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header{padding:34px 0 10px;display:flex;align-items:center;gap:14px}
+  header svg{width:30px;height:30px;color:var(--cop)}
+  h1{font-size:26px;font-weight:650;letter-spacing:-.01em}
+  .sub{color:var(--mut);font-size:15px;margin:6px 0 22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-bottom:16px}
+  label{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:14px 0 6px}
+  label:first-of-type{margin-top:0}
+  select,input[type=number]{width:100%;background:#12100e;border:1px solid var(--line);border-radius:10px;color:var(--bone);padding:11px 12px;font-size:15px;outline:none}
+  select:focus,input:focus{border-color:var(--cop)}
+  .row{display:flex;gap:12px}.row>*{flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{cursor:pointer;border:1px solid var(--line);border-radius:999px;background:#161311;color:var(--bone);padding:7px 13px;font-size:13.5px}
+  .chip[aria-pressed=true]{background:var(--cop);border-color:var(--cop);color:#fff;font-weight:600}
+  .out{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .kpi{flex:1 1 140px;background:#12100e;border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .kpi b{display:block;font-size:22px;font-weight:700;letter-spacing:-.02em}
+  .kpi span{font-size:12.5px;color:var(--mut)}
+  .note{color:var(--mut);font-size:13.5px;line-height:1.55;margin-top:14px}
+  .ruo{font-size:12.5px;color:var(--mut);border-top:1px solid var(--line);margin-top:26px;padding-top:16px}
+  .ruo b{color:var(--bone)}
+  a{color:var(--copb);text-decoration:none}a:hover{text-decoration:underline}
+  .links{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+  .links li{font-size:14.5px}
+  @media(max-width:520px){.links{grid-template-columns:1fr}}
+  footer{margin-top:34px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c3.2 3.9 5.2 7.3 5.2 11.2 0 4.6-2.4 7.6-5.2 7.6s-5.2-3-5.2-7.6C10.8 10.3 12.8 6.9 16 3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 7.5v18M11.6 25.5h8.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+  <div><h1>Peptide reconstitution calculator</h1>
+  <p class="sub">Concentration · draw volume · syringe units — for any catalog vial. Laboratory research use only.</p></div>
+</header>
+
+<div class="card">
+  <label for="vial">Vial (total peptide mass)</label>
+  <select id="vial"></select>
+
+  <label for="water">Bacteriostatic water added (mL)</label>
+  <input id="water" type="number" step="0.1" min="0.1" value="2">
+
+  <label>Target amount per aliquot</label>
+  <input id="dose" type="number" step="1" min="1" value="500">
+  <div class="chips" id="chips"></div>
+
+  <div class="out" id="out"></div>
+  <p class="note">Math: concentration = total mass ÷ water volume. Draw volume = target amount ÷ concentration. Units assume a 100-unit (1&nbsp;mL) insulin-type syringe. These are arithmetic results only — dosing decisions belong to your research protocol.</p>
+</div>
+
+<div class="card">
+  <strong style="font-size:15px">Keep going</strong>
+  <ul class="links">
+    <li><a href="https://vidapeptide.eu/en/calculator/">Full calculator with bilingual presets →</a></li>
+    <li><a href="https://vidapeptide.eu/en/coa-guide/">How to read a peptide COA (and spot fakes) →</a></li>
+    <li><a href="https://vidapeptide.eu/en/research-evidence/">Evidence table for 19 compounds →</a></li>
+    <li><a href="https://vidapeptide.eu/en/research/">Research hub by compound →</a></li>
+    <li><a href="https://vidapeptide.eu/en/shop/">VidaPeptide store (batch-tested vials) →</a></li>
+    <li><a href="https://vidapeptide.eu/jurnal/">Journal in Romanian →</a></li>
+  </ul>
+</div>
+
+<footer>Built by <a href="https://vidapeptide.eu/">VidaPeptide</a> · vidapeptide.eu · Romania · © 2026</footer>
+<p class="ruo"><b>RESEARCH USE ONLY.</b> All tools and references on this page relate to laboratory research materials. Not for human or veterinary consumption, diagnosis or treatment.</p>
+</div>
+
+<script>
+const VIALS=[
+    {"slug": "5-amino-1mq", "name": "5-Amino-1MQ 50 mg", "mg": 50, "presets": [12500, 25000, 50000]},
+    {"slug": "aod-9604", "name": "AOD-9604 5 mg", "mg": 5, "presets": [250, 500, 1000]},
+    {"slug": "bpc-157", "name": "BPC-157 5 mg", "mg": 5, "presets": [250, 500, 1000]},
+    {"slug": "cjc-1295", "name": "CJC-1295 (no DAC) 5 mg", "mg": 5, "presets": [50, 100, 200]},
+    {"slug": "epithalon", "name": "Epithalon 10 mg", "mg": 10, "presets": [2500, 5000, 10000]},
+    {"slug": "ghk-cu", "name": "GHK-Cu 50 mg", "mg": 50, "presets": [500, 1000, 2000]},
+    {"slug": "glow", "name": "GLOW Blend GHK-Cu 50 + BPC-157 10 + TB-500 10 mg", "mg": 70, "presets": [2000, 3500, 5000]},
+    {"slug": "glutathione", "name": "Glutathione 500 mg", "mg": 500, "presets": [100000, 200000, 400000]},
+    {"slug": "ipamorelin", "name": "Ipamorelin 10 mg", "mg": 10, "presets": [100, 200, 300]},
+    {"slug": "ipa-cjc", "name": "Ipamorelin + CJC-1295 5 mg + 5 mg", "mg": 10, "presets": [100, 300, 400]},
+    {"slug": "klow", "name": "KLOW Blend GHK-Cu 50 + BPC-157 10 + TB-500 10 + KPV 10 mg", "mg": 80, "presets": [2500, 4000, 6000]},
+    {"slug": "kpv", "name": "KPV 10 mg", "mg": 10, "presets": [100, 250, 500]},
+    {"slug": "mots-c", "name": "MOTS-c 10 mg", "mg": 10, "presets": [2500, 5000, 10000]},
+    {"slug": "nad-plus", "name": "NAD+ 500 mg", "mg": 500, "presets": [25000, 50000, 100000]},
+    {"slug": "slu-pp-332", "name": "SLU-PP-332 10 mg", "mg": 10, "presets": [100, 250, 500]},
+    {"slug": "selank", "name": "Selank 10 mg", "mg": 10, "presets": [250, 500, 1000]},
+    {"slug": "semax", "name": "Semax 10 mg", "mg": 10, "presets": [250, 500, 1000]},
+    {"slug": "tb-500", "name": "TB-500 5 mg", "mg": 5, "presets": [1000, 2500, 5000]},
+    {"slug": "bpc-tb", "name": "Wolverine Stack \u2014 BPC-157 + TB-500 10 mg + 10 mg", "mg": 20, "presets": [1000, 2000, 4000]}
+];
+const sel=document.getElementById('vial'), chips=document.getElementById('chips'),
+      waterEl=document.getElementById('water'), doseEl=document.getElementById('dose'), out=document.getElementById('out');
+VIALS.forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=v.name+' ('+v.mg+' mg)';sel.appendChild(o);});
+let presetButtons=[];
+function renderChips(){
+  const v=VIALS[+sel.value||0];chips.innerHTML='';presetButtons=[];
+  v.presets.forEach(p=>{const b=document.createElement('button');b.className='chip';b.type='button';
+    const lbl=p>=100000?(p/1000)+' mg':(p>=10000?(p/1000)+' mg':p+' µg');
+    b.textContent=lbl;b.setAttribute('aria-pressed','false');
+    b.onclick=()=>{doseEl.value=p;presetButtons.forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');calc();};
+    presetButtons.push(b);chips.appendChild(b);});
+  // default to the COMMON (middle) preset on every vial change
+  if(presetButtons[1]) presetButtons[1].click();
+}
+function calc(){
+  const v=VIALS[+sel.value||0], w=Math.max(parseFloat(waterEl.value)||0,0), d=Math.max(parseFloat(doseEl.value)||0,0);
+  if(!w||!d){out.innerHTML='';return;}
+  const conc=v.mg/w, doseMg=d/1000, draw=doseMg/conc, units=draw*100;
+  out.innerHTML=
+   '<div class="kpi"><span>Solution concentration</span><b>'+(conc>=100?Math.round(conc):conc.toFixed(conc<10?3:1))+' mg/mL</b></div>'+
+   '<div class="kpi"><span>Draw volume (target '+fmt(d)+')</span><b>'+draw.toFixed(draw<0.01?3:(draw<0.1?3:2))+' mL</b></div>'+
+   '<div class="kpi"><span>On 100-unit syringe</span><b>'+units.toFixed(units<1?2:1)+' units</b></div>';
+}
+function fmt(n){if(n>=100000)return (n/1000).toLocaleString('en-US')+' mg';if(n>=10000)return (n/1000).toLocaleString('en-US')+' mg';return n.toLocaleString('en-US')+' µg';}
+sel.onchange=renderChips;
+waterEl.oninput=calc;doseEl.oninput=calc;
+// pick BPC-157 as default BEFORE building chips (index lookup)
+for(let i=0;i<VIALS.length;i++) if(VIALS[i].slug==='bpc-157'){sel.value=i;break;}
+renderChips();
+presetButtons[1] && presetButtons[1].click();
+calc();
+</script>
+</body>
+</html>
